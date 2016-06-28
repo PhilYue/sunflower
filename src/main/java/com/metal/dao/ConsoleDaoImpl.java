@@ -106,7 +106,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
 	}
 
 	@Override
-	public long createTVShow(String title) {
+	public long createTVShow(final String title) {
 		KeyHolder keyHolder = new GeneratedKeyHolder(); 
 		jdbcTemplate.update(new PreparedStatementCreator() {  
 			@Override
@@ -268,7 +268,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
 	}
 	
 	@Override
-	public void createTask(Task task) {
+	public void createTask(final Task task) {
 //		jdbcTemplate.update(TASK_INSERT_SQL, task.getKey_word());
 
 		KeyHolder keyHolder = new GeneratedKeyHolder(); 

@@ -14,5 +14,8 @@
 	<div>
 		<a href="/console/tasks">搜索任务列表</a>
 	</div>
+	<div>
+		<a href="/barrage/b_barrage.html">弹幕视频任务列表</a>
+	</div>
 </body>
 </html>

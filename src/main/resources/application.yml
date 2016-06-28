@@ -37,4 +37,4 @@ spring:
     max-idle: 5
     min-idle: 2
     username: root
-    password: 
+    password: root
