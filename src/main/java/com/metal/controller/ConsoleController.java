@@ -43,6 +43,11 @@ public class ConsoleController {
 		return "ok";
 	}
 
+	@RequestMapping("/")
+	String _welcome() {
+		return "index";
+	}
+
 	@RequestMapping("/index")
 	String welcome() {
 		return "index";
@@ -50,7 +55,10 @@ public class ConsoleController {
 
 	@RequestMapping("/videotasks")
 	String getVideoTasks(Map<String, Object> model) {
+		long start = System.currentTimeMillis();
 		List<VideoTaskBean> videoTasks = consoleService.getVideoTasks();
+		long end = System.currentTimeMillis();
+		log.info("=======query task spend time :["+(end-start)+"]========");
 		model.put("videotasks", videoTasks);
 		return "videotasks";
 	}
