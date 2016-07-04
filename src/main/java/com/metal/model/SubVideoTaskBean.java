@@ -20,6 +20,10 @@ public class SubVideoTaskBean {
 	private Date add_time;
 	private Date last_update_time;
 	private int count;
+	/** 弹幕数 */
+	private int barrageCount;
+	/** 弹幕状态 */
+	private int barrage_status;
 
 	public long getSub_vid() {
 		return sub_vid;
@@ -91,6 +95,22 @@ public class SubVideoTaskBean {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public int getBarrageCount() {
+		return barrageCount;
+	}
+
+	public void setBarrageCount(int barrageCount) {
+		this.barrageCount = barrageCount;
+	}
+
+	public int getBarrage_status() {
+		return barrage_status;
+	}
+
+	public void setBarrage_status(int barrage_status) {
+		this.barrage_status = barrage_status;
 	}
 
 	public String getPlatformStr() {

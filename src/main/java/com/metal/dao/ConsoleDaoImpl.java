@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,6 +16,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.metal.common.Constants;
@@ -35,8 +37,9 @@ public class ConsoleDaoImpl implements ConsoleDao {
 	private static final String TV_SHOW_INSERT_SQL = "insert into tv_show (tv_show_name) values (?)";
 	
 	private static final String VIDEO_TASK_INSERT_SQL = "insert into video_task (url,platform,title,status,reset_time,tv_id) values (?,?,?,?,?,?)";
-	
-	private static final String QUERY_VIDEO_TASK = "select v.vid,v.url,v.platform,v.title,v.status,v.start_time,v.end_time,v.reset_time,count(c.comment_id) count from video_task v left join video_comments c on v.vid=c.vid group by v.vid order by v.start_time desc limit 100";
+
+//	private static final String QUERY_VIDEO_TASK = "select v.vid,v.url,v.platform,v.title,v.status,v.start_time,v.end_time,v.reset_time,count(c.comment_id) count,COUNT(t.id) AS barrageCount from video_task v left join video_comments c on v.vid=c.vid LEFT JOIN tv_barrage t ON t.v_task_id = v.vid group by v.vid order by v.start_time desc limit 100";
+	private static final String QUERY_VIDEO_TASK = "SELECT sc.*, COUNT(t.id) AS barrageCount FROM (select v.vid,v.url,v.platform,v.title,v.status,v.barrage_status,v.start_time,v.end_time,v.reset_time,count(c.comment_id) count from video_task v left join video_comments c on v.vid=c.vid group by v.vid ) AS sc LEFT JOIN tv_barrage t ON t.v_task_id = sc.vid order by sc.start_time desc limit 100";
 	
 	private static final String QUERY_VIDEO_TASK_BY_ID = "select vid,url,platform,title,status,start_time,end_time,reset_time from video_task where vid=?";
 	
@@ -50,7 +53,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
 
 //	private static final String QUERY_SUB_TASK = "select sub_vid,vid,page_url,platform,title,status,add_time,last_update_time from sub_video_task";
 	
-	private static final String QUERY_SUB_VIDEO_TASK_BY_VID = "select s.sub_vid,s.vid,s.page_url,s.platform,s.title,s.status,s.add_time,s.last_update_time,count(c.comment_id) count from sub_video_task s left join video_comments c on s.sub_vid=c.sub_vid where s.vid=? group by s.sub_vid order by s.sub_vid asc";
+	private static final String QUERY_SUB_VIDEO_TASK_BY_VID = "SELECT sc.*, COUNT(t.id) AS barrageCount FROM (select s.sub_vid,s.vid,s.page_url,s.platform,s.title,s.status,s.barrage_status,s.add_time,s.last_update_time,count(c.comment_id) AS count from sub_video_task s left join video_comments c on s.sub_vid=c.sub_vid  where s.vid=? group by s.sub_vid ) AS sc LEFT JOIN tv_barrage t ON t.v_sub_task_id = sc.sub_vid GROUP BY sc.sub_vid ORDER BY sc.sub_vid ASC";
 
 	private static final String STOP_SUB_VIDEO_TASK = "update sub_video_task set status=" + Constants.TASK_STATUS_STOP + " where vid=? and status=" + Constants.TASK_STATUS_INIT;
 	
@@ -102,6 +105,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
 				return subVideoTaskPackage(rs);
 			}
 		});
+
 		return subVideoTasks;
 	}
 
@@ -354,6 +358,8 @@ public class ConsoleDaoImpl implements ConsoleDao {
 			videoTaskBean.setEnd_time(rs.getTimestamp("end_time"));
 			videoTaskBean.setReset_time(rs.getTime("reset_time"));
 			videoTaskBean.setCount(rs.getInt("count"));
+			videoTaskBean.setBarrageCount(rs.getInt("barrageCount"));
+			videoTaskBean.setBarrage_status(rs.getInt("barrage_status"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -373,6 +379,8 @@ public class ConsoleDaoImpl implements ConsoleDao {
 			subVideoTaskBean.setAdd_time(rs.getTimestamp("add_time"));
 			subVideoTaskBean.setLast_update_time(rs.getTimestamp("last_update_time"));
 			subVideoTaskBean.setCount(rs.getInt("count"));
+			subVideoTaskBean.setBarrageCount(rs.getInt("barrageCount"));
+			subVideoTaskBean.setBarrage_status(rs.getInt("barrage_status"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,17 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>骨朵传媒任务抓取系统</title>
 </head>
 <body>
 	<div>
-		<a href="/console/videotasks">视频任务列表</a>
+		<a href="/console/videotasks" target="_blank">视频任务列表</a>
 	</div>
 	<div>
-		<a href="/console/tasks">搜索任务列表</a>
-	</div>
-	<div>
-		<a href="/barrage/b_barrage.html">弹幕视频任务列表</a>
+		<a href="/console/tasks" target="_blank">搜索任务列表</a>
 	</div>
 </body>
 </html>

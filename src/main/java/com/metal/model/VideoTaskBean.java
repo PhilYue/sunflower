@@ -16,6 +16,8 @@ public class VideoTaskBean {
 	private long tv_id;
 	private Time reset_time;
 	private int count;
+	private int barrageCount;
+	private int barrage_status;
 
 	public long getVid() {
 		return vid;
@@ -95,6 +97,22 @@ public class VideoTaskBean {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public int getBarrageCount() {
+		return barrageCount;
+	}
+
+	public void setBarrageCount(int barrageCount) {
+		this.barrageCount = barrageCount;
+	}
+
+	public int getBarrage_status() {
+		return barrage_status;
+	}
+
+	public void setBarrage_status(int barrage_status) {
+		this.barrage_status = barrage_status;
 	}
 
 	public String getPlatformStr() {

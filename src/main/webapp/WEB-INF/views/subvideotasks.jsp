@@ -16,9 +16,9 @@
 			<th>平台</th>
 			<th>标题</th>
 			<th>URL</th>
-			<th>状态</th>
+			<th>状态<br>弹幕状态</th>
 			<th>添加时间</th>
-			<th>评论数</th>
+			<th>评论数<br>弹幕数</th>
 			<!-- <th>结束时间</th> -->
 		</tr>
 		<c:forEach var="subvideotask" items="${subvideotasks }">
@@ -28,9 +28,20 @@
 				<td><c:out value="${subvideotask.platformStr }"/></td>
 				<td><c:out value="${subvideotask.title }"/></td>
 				<td><c:out value="${subvideotask.page_url }"/></td>
-				<td><c:out value="${subvideotask.statusStr }"/></td>
+				<td><c:out value="${subvideotask.statusStr }"/><br>
+					<c:choose>
+						<c:when test="${subvideotask.barrage_status==0}">初始化</c:when>
+						<c:when test="${subvideotask.barrage_status==1}">运行中</c:when>
+						<c:when test="${subvideotask.barrage_status==2}">完成</c:when>
+						<c:when test="${subvideotask.barrage_status==-1}">⼿手动结束</c:when>
+						<c:when test="${subvideotask.barrage_status==-2}">异常结束</c:when>
+						<c:otherwise>
+							- - -
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td><c:out value="${subvideotask.add_time }"/></td>
-				<td><c:out value="${subvideotask.count }"/></td>
+				<td><c:out value="${subvideotask.count }"/><br>${subvideotask.barrageCount }</td>
 				<%-- <td><c:out value="${subvideotask.last_update_time }"/></td> --%>
 			</tr>
 		</c:forEach>

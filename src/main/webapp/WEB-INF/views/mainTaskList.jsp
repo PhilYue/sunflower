@@ -48,5 +48,5 @@
 			<div class="panel-body"><div id="taskGrid" class="dg"></div></div>
 		</div>
 </body>
-<script type="text/javascript" src="/res/csSystem/js/csTaskList.js"></script>
+<script type="text/javascript" src="/static/pageJs/js/mainTaskList.js"></script>
 </html>

@@ -66,8 +66,7 @@ public class ConsoleController {
 	@RequestMapping("/subvideotasks/{vid}")
 	String getSubVideoTasks(@PathVariable("vid") long vid,
 			Map<String, Object> model) {
-		List<SubVideoTaskBean> subVideoTasks = consoleService
-				.getSubVideoTasks(vid);
+		List<SubVideoTaskBean> subVideoTasks = consoleService.getSubVideoTasks(vid);
 		model.put("subvideotasks", subVideoTasks);
 		return "subvideotasks";
 	}

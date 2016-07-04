@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@include file="/common/common.jsp"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>骨朵传媒--任务页</title>
 </head>
 <body>
 	<div>
@@ -32,11 +33,11 @@
 			<th>平台</th>
 			<th>标题</th>
 			<th>URL</th>
-			<th>状态</th>
+			<th>评论状态<br>弹幕状态</th>
 			<th>开始时间</th>
 			<!-- <th>结束时间</th> -->
 			<th>定时重抓时间</th>
-			<th>评论数</th>
+			<th>评论数<br>弹幕数</th>
 			<th>详细</th>
 			<th>操作</th>
 		</tr>
@@ -46,13 +47,24 @@
 				<td><c:out value="${videotask.platformStr }"/></td>
 				<td><c:out value="${videotask.title }"/></td>
 				<td><c:out value="${videotask.url }"/></td>
-				<td><c:out value="${videotask.statusStr }"/></td>
+				<td><c:out value="${videotask.statusStr }"/><br>
+					<c:choose>
+						<c:when test="${videotask.barrage_status==0}">初始</c:when>
+						<c:when test="${videotask.barrage_status==1}">运⾏行</c:when>
+						<c:when test="${videotask.barrage_status==2}">完成</c:when>
+						<c:when test="${videotask.barrage_status==-1}">⼿手动结束</c:when>
+						<c:when test="${videotask.barrage_status==-2}">异常结束</c:when>
+						<c:otherwise>
+							- - -
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td><c:out value="${videotask.start_time }"/></td>
 				<%-- <td><c:out value="${videotask.end_time }"/></td> --%>
 				<td><c:out value="${videotask.reset_time }"/></td>
-				<td><c:out value="${videotask.count }"/></td>
+				<td><c:out value="${videotask.count }"/><br>${videotask.barrageCount}</td>
 				<td>
-					<a href="/console/subvideotasks/${videotask.vid }">详细</a>
+					<a href="/console/subvideotasks/${videotask.vid }" target="_blank">详细</a>
 					<a href="/console/updatevideotask?vid=${videotask.vid }">更新</a>
 				</td>
 				<td>
