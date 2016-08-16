@@ -24,6 +24,8 @@ public class SubVideoTaskBean {
 	private int barrageCount;
 	/** 弹幕状态 */
 	private int barrage_status;
+	/** 播放时长 */
+	private int playTime;
 
 	public long getSub_vid() {
 		return sub_vid;
@@ -111,6 +113,14 @@ public class SubVideoTaskBean {
 
 	public void setBarrage_status(int barrage_status) {
 		this.barrage_status = barrage_status;
+	}
+
+	public int getPlayTime() {
+		return playTime;
+	}
+
+	public void setPlayTime(int playTime) {
+		this.playTime = playTime;
 	}
 
 	public String getPlatformStr() {
